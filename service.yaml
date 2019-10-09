@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: provisioner
+  labels:
+    app: provisioner
+    role: master
+    tier: backend
+spec:
+  ports:
+  - port: 4567
+    targetPort: 4567
+  selector:
+    app: provisioner
+    role: master
+    tier: backend

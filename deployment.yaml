@@ -1,0 +1,31 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: provisioner
+  labels:
+    app: provisioner
+spec:
+  selector:
+    matchLabels:
+      app: provisioner
+      role: master
+      tier: backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: provisioner
+        role: master
+        tier: backend
+    spec:
+      containers:
+      - name: provisioner
+        image: provisioner:48
+        imagePullPolicy: Never
+        resources:
+          requests:
+            cpu: 512m
+            memory: 1024Mi
+        ports:
+        - containerPort: 4567
+
