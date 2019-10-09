@@ -1,6 +1,6 @@
-package com.hazelcast.qe.k8s.provisioner;
+package com.hazelcast.qe.k8s.coordinator;
 
-import com.hazelcast.qe.k8s.commands.Coordinator;
+import com.hazelcast.qe.k8s.commands.Scenario;
 import io.fabric8.kubernetes.api.model.NamespaceBuilder;
 import io.fabric8.kubernetes.api.model.ServiceAccountBuilder;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 @Builder
 @Slf4j
 @Getter
-public class Provisioner {
+public class Coordinator {
     private static String SIMULATOR = "/home/qe/hazelcast/simulator/hazelcast-simulator-0.11/bin/simulator-wizard";
     private static String PROVISIONER = "/home/qe/hazelcast/simulator/hazelcast-simulator-0.11/bin/provisioner";
 
@@ -40,9 +40,9 @@ public class Provisioner {
     @Builder.Default
     private String deploymentName = "k8s-deployment";
     @Builder.Default
-    private String serviceAccount = "provisioner";
+    private String serviceAccount = "coordinator";
     @Builder.Default
-    private String imageName = "agent:10";
+    private String imageName = "agent:11";
     @Builder.Default
     private String namespace = "default";
     @Builder.Default
@@ -50,7 +50,7 @@ public class Provisioner {
     @Builder.Default
     private String serviceLabel = "agent";
     @Builder.Default
-    private List<Coordinator> coordinators = new ArrayList<>();
+    private List<Scenario> coordinators = new ArrayList<>();
     @NonNull
     private final KubernetesClient k8s;
 
@@ -225,7 +225,7 @@ public class Provisioner {
             return "Pending coordinator(s) found, please wait for completion";
         }
 
-        val coordinator = Coordinator.builder()
+        val coordinator = Scenario.builder()
                 .workingPath(path)
                 .build();
 

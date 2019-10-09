@@ -13,7 +13,7 @@ check_dependencies() {
 
 print_usage(){
     echo "usage: $program_name [-d] =<value> "
-    echo "  -d if true skips build of provisioner docker image build default: true"
+    echo "  -d if true skips build of coordinator docker image build default: true"
     echo "  -h print usage"
     exit 1
 }
@@ -53,18 +53,18 @@ eval $(minikube docker-env)
 echo building base agent image
 cd ${cwd}
 cd ./agent-image/
-docker build . -t agent:10
+docker build . -t agent:11
 
-echo building provisioner image
+echo building coordinator image
 cd ${cwd}
-cd ./provisioner-image/
-docker build . -t provisioner-base:8
+cd ./coordinator-image/
+docker build . -t coordinator-base:10
 
 if [ "$skip" != "true" ]; then
     cd ${cwd}
-    cd ./provisioner/
-    echo preparing image of provisioner
-    mvn -q -B package docker:build -Dmaven.test.skip=true
+    cd ./coordinator/
+    echo preparing image of coordinator
+    mvn -q -B -U clean package docker:build -Dmaven.test.skip=true
 fi
 
 cd ${cwd}
@@ -72,4 +72,4 @@ kubectl apply -f fabric8.yaml
 kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
 sleep 10
-kubectl port-forward --pod-running-timeout=1m0s deployment/provisioner 4567:4567
+kubectl port-forward --pod-running-timeout=1m0s deployment/qe-coordinator 4567:4567

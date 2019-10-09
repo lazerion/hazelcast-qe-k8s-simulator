@@ -1,4 +1,4 @@
-package com.hazelcast.qe.k8s.provisioner;
+package com.hazelcast.qe.k8s.coordinator;
 
 import io.fabric8.kubernetes.client.server.mock.KubernetesServer;
 import lombok.extern.slf4j.Slf4j;
@@ -12,37 +12,37 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 
 @Slf4j
-public class ProvisionerTest {
+public class CoordinatorTest {
 
     @Rule
     public KubernetesServer server = new KubernetesServer(true, true);
 
-    private Provisioner provisioner;
+    private Coordinator coordinator;
 
     @Before
     public void before(){
-        provisioner = Provisioner.builder()
+        coordinator = Coordinator.builder()
                 .k8s(server.getClient())
                 .build();
     }
 
     @Test
     public void shouldDeploy() {
-        val actual = provisioner.deploy();
+        val actual = coordinator.deploy();
         assertThat(actual, is(notNullValue()));
     }
 
     @Test
     public void shouldScale(){
-        provisioner.deploy();
-        val deployment = provisioner.scale(2);
+        coordinator.deploy();
+        val deployment = coordinator.scale(2);
         log.info("{}", deployment.getStatus());
     }
 
     @Test
     public void shouldTerminate(){
-        provisioner.deploy();
-        provisioner.scale(1);
-        assertThat(provisioner.terminate(), is(true));
+        coordinator.deploy();
+        coordinator.scale(1);
+        assertThat(coordinator.terminate(), is(true));
     }
 }

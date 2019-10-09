@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: provisioner
+  name: qe-coordinator
   labels:
-    app: provisioner
+    app: qe-coordinator
     role: master
     tier: backend
 spec:
@@ -11,6 +11,6 @@ spec:
   - port: 4567
     targetPort: 4567
   selector:
-    app: provisioner
+    app: qe-coordinator
     role: master
     tier: backend

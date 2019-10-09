@@ -1,26 +1,26 @@
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
-  name: provisioner
+  name: qe-coordinator
   labels:
-    app: provisioner
+    app: qe-coordinator
 spec:
   selector:
     matchLabels:
-      app: provisioner
+      app: qe-coordinator
       role: master
       tier: backend
   replicas: 1
   template:
     metadata:
       labels:
-        app: provisioner
+        app: qe-coordinator
         role: master
         tier: backend
     spec:
       containers:
-      - name: provisioner
-        image: provisioner:48
+      - name: qe-coordinator
+        image: qe-coordinator:52
         imagePullPolicy: Never
         resources:
           requests:

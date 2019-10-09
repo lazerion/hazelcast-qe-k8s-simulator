@@ -10,8 +10,8 @@
   <version>1.0.0-SNAPSHOT</version>
 
   <modules>
-    <module>provisioner-image</module>
-    <module>provisioner</module>
+    <module>coordinator-image</module>
+    <module>coordinator</module>
   </modules>
 
   <name>qe-k8s-simulator</name>

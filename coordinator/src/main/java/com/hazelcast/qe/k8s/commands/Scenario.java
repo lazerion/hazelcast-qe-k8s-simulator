@@ -12,7 +12,7 @@ import java.nio.file.Path;
 
 @Slf4j
 @Builder
-public class Coordinator extends DefaultExecuteResultHandler {
+public class Scenario extends DefaultExecuteResultHandler {
     private static String COORDINATOR = "/home/qe/hazelcast/simulator/hazelcast-simulator-0.11/bin/coordinator";
 
     private static final String gcArgs = "-verbose:gc -Xloggc:verbosegc.log -XX:+PrintGCTimeStamps -XX:+PrintGCDetails " +
