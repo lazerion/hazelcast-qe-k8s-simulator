@@ -53,12 +53,12 @@ eval $(minikube docker-env)
 echo building base agent image
 cd ${cwd}
 cd ./agent-image/
-docker build . -t agent:11
+docker build -q . -t agent:11
 
-echo building coordinator image
+echo building base coordinator image
 cd ${cwd}
 cd ./coordinator-image/
-docker build . -t coordinator-base:10
+docker build -q . -t coordinator-base:10
 
 if [ "$skip" != "true" ]; then
     cd ${cwd}
